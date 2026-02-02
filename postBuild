@@ -1,5 +1,0 @@
-#!/bin/bash
-# This will run your Flask app when Binder starts
-export PORT=5000
-export FLASK_APP=app.py
-flask run --host=0.0.0.0 --port=$PORT
