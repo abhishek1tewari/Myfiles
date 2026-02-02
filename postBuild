@@ -1,0 +1,7 @@
+#!/bin/bash
+# Tell Flask which file to run
+export FLASK_APP=app.py
+# Binder uses port 5000
+export PORT=5000
+# Start Flask
+flask run --host=0.0.0.0 --port=$PORT
