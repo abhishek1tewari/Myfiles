@@ -3,3 +3,4 @@ rapidfuzz
 ipywidgets
 openpyxl
 notebook
+voila
