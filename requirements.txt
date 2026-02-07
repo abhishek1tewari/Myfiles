@@ -1,6 +1,1 @@
-pandas
-rapidfuzz
-ipywidgets
-openpyxl
-notebook
-voila
+
