@@ -1,4 +1,4 @@
-streamlit
+streamlit>=1.30
 pandas
-rapidfuzz
+rapidfuzz==3.6.1
 openpyxl
