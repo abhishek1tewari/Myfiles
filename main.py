@@ -1,23 +1,7 @@
 import streamlit as st
 import pandas as pd
 from io import BytesIO
-
-# ==================================================
-# BULLETPROOF FUZZY IMPORT (STREAMLIT CLOUD SAFE)
-# ==================================================
-try:
-    from rapidfuzz import fuzz
-    FUZZ_ENGINE = "rapidfuzz"
-except Exception:
-    from difflib import SequenceMatcher
-
-    class fuzz:
-        @staticmethod
-        def token_set_ratio(a, b):
-            return int(SequenceMatcher(None, a, b).ratio() * 100)
-
-    FUZZ_ENGINE = "difflib (fallback)"
-
+from difflib import SequenceMatcher
 
 # ==================================================
 # STREAMLIT PAGE CONFIG
@@ -28,12 +12,16 @@ st.set_page_config(
 )
 
 st.title("🔍 Conflict of Interest – Fuzzy Matching Tool")
-st.caption(f"Fuzzy engine in use: **{FUZZ_ENGINE}**")
+st.caption("Fuzzy engine in use: **difflib (standard library)**")
 
 
 # ==================================================
-# MATCHING FUNCTION
+# SIMPLE FUZZY MATCH FUNCTION (NO EXTERNAL LIBS)
 # ==================================================
+def token_set_ratio(a, b):
+    return int(SequenceMatcher(None, a, b).ratio() * 100)
+
+
 def run_matching(vendor_df, employee_df, v_col, e_col, threshold):
     results = []
 
@@ -42,7 +30,7 @@ def run_matching(vendor_df, employee_df, v_col, e_col, threshold):
             v_val = str(v_row[v_col])
             e_val = str(e_row[e_col])
 
-            score = fuzz.token_set_ratio(v_val, e_val)
+            score = token_set_ratio(v_val, e_val)
 
             if score >= threshold:
                 row = {
